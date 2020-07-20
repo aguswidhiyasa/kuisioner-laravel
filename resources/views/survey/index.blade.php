@@ -106,7 +106,7 @@
                     <div class="pertanyaan-item-option">
                         <ul>
                         @foreach ($questionOptions as $question)
-                            <li class="text-base mb-2">{!! Form::radio('jawaban['.  $pertanyaan->id .']', $question->id, false, ) !!}
+                            <li class="text-base mb-2">{!! Form::radio('jawaban['.  $pertanyaan->id .']', $question->id, false) !!}
                             <span>{!! Form::label('pertanyaan_' . $pertanyaan->id , $question->title, []) !!}</span></li>
                         @endforeach
                         </ul>

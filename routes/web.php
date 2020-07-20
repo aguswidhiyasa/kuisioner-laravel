@@ -41,7 +41,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function() {
         Route::get('/data',         'Admin\\OptionC@data'       )->name('options.data');
         Route::get('/add',          'Admin\\OptionC@add'        )->name('options.add');
         Route::post('/store',       'Admin\\OptionC@store'      )->name('options.store');
-        Route::get('/edit/{id}',    'Admin\\OptionsC@edit',     )->name('options.edit');
+        Route::get('/edit/{id}',    'Admin\\OptionsC@edit'      )->name('options.edit');
     });
 
     Route::group(['prefix' => 'pertanyaan'], function () {
