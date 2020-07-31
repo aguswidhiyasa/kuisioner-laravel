@@ -15,11 +15,14 @@ class UserSeeder extends Seeder
     {
         //
         for ($i = 1; $i <= 10; $i++) {
+            $rand = rand(10, 1000);
+            $pass = 'guru'. $rand;
             DB::table('users')->insert([
                 'name' => 'Guru ' . $i,
                 'tipe_user' => 'USER', 
-                'email' => 'Guru' . $i . '@guru.com',
-                'password' => Hash::make('password')
+                'email' => 'guru' . $i . '@guru.com',
+                'password' => Hash::make($pass),
+                'temp_password' => $pass
             ]);
         }
     }

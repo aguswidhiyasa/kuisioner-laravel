@@ -26,9 +26,24 @@ class SurveyC extends Controller
             $pertanyaans = PertanyaanModel::where('kategori_id', $assignQuestion->kategori_id)->get();
             $questionOptions = QuestionOptionModel::where('option_group', $kategori->option_id)->get();
 
-            return view('survey.index', compact('kategori', 'pertanyaans', 'questionOptions', 'id'));
+            // generate field untuk additional info
+            $kategoriAdditional = array();
+
+            $katTambahan = explode(',', $kategori->tambahan_info);
+            foreach ($katTambahan as $tambahan) {
+                $tmbExplode = explode('_', $tambahan);
+                $text = "";
+                foreach ($tmbExplode as $t) {
+                    $text .= " " . ucfirst($t);
+                }
+
+                $kategoriAdditional[$tambahan] = $text;
+            }
+
+            return view('survey.' . $kategori->template, compact('kategori', 'pertanyaans', 'questionOptions', 'id', 'kategoriAdditional'));
         } else {
-            return abort(404, 'Kuisioner tidak ditemukan');
+            return redirect('home');
+        // return abort(404, 'Kuisioner tidak ditemukan');
         }
     }
 
@@ -46,15 +61,30 @@ class SurveyC extends Controller
             // Marks Questionnaire already ansered
             $assignedQuestionRaw->update(['answered' => 1]);
 
-            $jawabanMasterId = DB::table('jawaban_master')->insertGetId([
-                'user_id'       => $user->id,
-                'assigned_id'   => $assignedQuestion->id,
-                'add_data'      => json_encode([
-                    'nama_lengkap'  => $request->nama_lengkap,
-                    'add_info'      => $request->add_info
-                ]) 
+            $jawabanM = new JawabanMasterModel;
+            $jawabanM->user_id = $user->id;
+            $jawabanM->assigned_id = $assignedQuestion->id;
+            $jawabanM->add_data = json_encode([
+                'nama_lengkap'              => $request->nama_lengkap,
+                'guru_mata_pelajaran'                => isset($request->add_info_mapel) ? $request->add_info_mapel : "",
+                'kelas'                     => isset($request->add_info_kelas) ? $request->add_info_kelas : "",
+                'kompetensi_keahlian'       => isset($request->add_info_kompetensi) ? $request->add_info_kompetensi : "",
             ]);
-    
+            $jawabanM->save();
+
+            $jawabanMasterId = $jawabanM->id;
+
+            // $jawabanMasterId = DB::table('jawaban_master')->insertGetId([
+            //     'user_id'       => $user->id,
+            //     'assigned_id'   => $assignedQuestion->id,
+            //     'add_data'      => json_encode([
+            //         'nama_lengkap'              => $request->nama_lengkap,
+            //         'guru_mata_pelajaran'                => isset($request->add_info_mapel) ? $request->add_info_mapel : "",
+            //         'kelas'                     => isset($request->add_info_kelas) ? $request->add_info_kelas : "",
+            //         'kompetensi_keahlian'       => isset($request->add_info_kompetensi) ? $request->add_info_kompetensi : "",
+            //     ])
+            // ]);
+
             $jawaban = [];
             foreach ($request->jawaban as $pertanyaanId => $jawab) {
                 $jawaban[] = [
@@ -63,13 +93,15 @@ class SurveyC extends Controller
                     'option_id' => (int) $jawab
                 ];
             }
-    
+
             $jawabanOption = JawabanOptionModel::insert($jawaban);
-    
+
             $tandaTangan = JawabanTandaTanganModel::insert([
                 'jawaban_id' => $jawabanMasterId,
                 'tanda_tangan' => $request->signature
             ]);
+
+            // return reaload()
         } else {
             return abort(404, "Survey tidak ditemukan");
         }

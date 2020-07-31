@@ -27,6 +27,13 @@
                         {!! Form::select('option_group', $optionGroup, null, ['class' => 'form-control']) !!}
                     </div>
                 </div>
+                <div class="form-group row">
+                    {!! Form::label('tambahan_info', "Tambahan Info", ['class' => 'col-sm-2 col-form-label']) !!}
+                    <div class="col-sm-10">
+                        {!! Form::text('tambahan_info', null, ['class' => 'form-control']) !!}
+                        <span class="help-block">Pisahkan dengan koma (,)</span>
+                    </div>
+                </div>
                 <div class="form-group">
                     {{ Form::submit('Simpan', ['class' => 'btn btn-success']) }}
                 </div>

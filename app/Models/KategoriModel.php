@@ -9,7 +9,7 @@ class KategoriModel extends Model
     //
     protected $table = 'kategori';
 
-    protected $fillable = ['kategori', 'deskripsi', 'option_id', 'judul'];
+    protected $fillable = ['kategori', 'deskripsi', 'option_id', 'judul', 'tambahan_info', 'template'];
 
     public static function getCategoryAsSelect()
     {

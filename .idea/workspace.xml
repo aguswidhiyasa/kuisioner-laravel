@@ -1,7 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7e56a908-9277-4322-ac67-33bce64331fd" name="Default Changelist" comment="" />
+    <list default="true" id="7e56a908-9277-4322-ac67-33bce64331fd" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/QuestionnaireC.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/QuestionnaireC.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/SurveyC.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/SurveyC.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/KategoriModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/KategoriModel.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/kategori/add.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/kategori/add.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/questionnaire/assign.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/questionnaire/assign.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/questionnaire/pdf.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/questionnaire/pdf.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/home.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/home.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/survey/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/survey/index.blade.php" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -12,6 +24,9 @@
     <execution>
       <executable />
     </execution>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="PhpWorkspaceProjectConfiguration">
     <include_path>
@@ -124,6 +139,7 @@
     </include_path>
   </component>
   <component name="ProjectId" id="1eLpOCo0dsYTJZoQBIOHzbV6r0b" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
@@ -131,9 +147,15 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/views/survey" />
     <property name="nodejs_package_manager_path" value="npm" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/resources/views/survey" />
+    </key>
   </component>
   <component name="RunManager">
     <configuration name="phpunit.xml" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
@@ -156,6 +178,7 @@
       <workItem from="1594267172937" duration="421000" />
       <workItem from="1594975484030" duration="867000" />
       <workItem from="1595163177850" duration="7508000" />
+      <workItem from="1596210063451" duration="2806000" />
     </task>
     <servers />
   </component>

@@ -22,6 +22,7 @@
                     <td width="200px">Aksi</td>
                 </tr>
                 @foreach($users as $user)
+                    @if ($user->kategori_id == $id ||!isset($user->kategori_id))
                     <tr>
                         <td><input type="checkbox" name="users[]" class="user-check" value="{{ $user->user_id }}" {{ isset($user->answered) ? 'disabled checked' : ''  }}></td>
                         <td>{{ $user->name }}</td>
@@ -32,6 +33,7 @@
                             @endif
                         </td>
                     </tr>
+                    @endif
                 @endforeach
             </table>
             <br>

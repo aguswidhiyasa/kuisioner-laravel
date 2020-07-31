@@ -45,14 +45,12 @@
 
 <h4>DATA RESPONDEN</h4>
 <table style="margin-left: 16px">
-    <tr>
-        <td>Nama</td>
-        <td> : I Putu Agus Widhiyasa</td>
-    </tr>
-    <tr>
-        <td>Guru Mata Pelajaran</td>
-        <td> : KKPI</td>
-    </tr>
+    @foreach ($newInfo as $info)
+        <tr>
+            <td>{{ $info['title'] }}</td>
+            <td>: {{ $info['value'] }}</td>
+        </tr>
+    @endforeach
 </table>
 
 <br>
@@ -132,7 +130,7 @@
 
 <table width="300px" style="float: right">
     <tr>
-        <td align="center" style="padding-bottom: 15px;">Singaraja, 30 Januari 2020</td>
+        <td align="center" style="padding-bottom: 15px;">Singaraja, {{ date('d F Y', strtotime($jawaban->created_at)) }}</td>
     </tr>
     <tr>
         <td>
@@ -140,7 +138,7 @@
         </td>
     </tr>
     <tr>
-        <td align="center" style="padding-top: 15px;">(Nama Lengkap)</td>
+        <td align="center" style="padding-top: 15px;">({{ $namaLengkap }})</td>
     </tr>
 </table>
 

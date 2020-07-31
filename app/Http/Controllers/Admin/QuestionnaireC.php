@@ -32,6 +32,7 @@ class QuestionnaireC extends Controller
         $users = User::select([
             'assign_question.question_id as assign_id',
             'users.id as user_id',
+            'assign_question.kategori_id as kategori_id',
             'name',
             'email',
             'answered'
@@ -45,7 +46,7 @@ class QuestionnaireC extends Controller
 
     public function assignStore(Request $request)
     {
-        $this->validate($request, ['users[]', 'required']);
+//        $this->validate($request, ['users', 'required']);
 
         $data = [];
         foreach ($request->users as $users) {
@@ -60,6 +61,7 @@ class QuestionnaireC extends Controller
         }
 
         $assign = AssignQuestionModel::insert($data);
+
 
         if ($assign) {
             Helpers::message('Data Berhasil disimpan');
@@ -76,10 +78,31 @@ class QuestionnaireC extends Controller
         $kategori = KategoriModel::find($assignQuestion->kategori_id);
 
         $jawaban = JawabanMasterModel::select([
-            'jawaban_master.id as jawaban_id'
+            'jawaban_master.id as jawaban_id', 'jawaban_master.add_data', 'jawaban_master.created_at'
         ])->join('assign_question', 'assign_question.id', '=', 'jawaban_master.assigned_id')
             ->where('assign_question.question_id', $id)
             ->first();
+
+        $namaLengkap = "";
+
+        $newInfo = array();
+        $addInfo = json_decode($jawaban->add_data, true);
+        foreach ($addInfo as $k => $i) {
+            if ($k == 'nama_lengkap') {
+                $namaLengkap = $i;
+            }
+
+            if (isset($i) && (strlen($i) > 0)) {
+                //ren
+                $titles = explode('_', $k);
+                $newTitle = "";
+                foreach ($titles as $title) {
+                    $newTitle .= " " . ucfirst($title);
+                } 
+
+                $newInfo[] = ['title' => $newTitle, 'value' => $i];
+            }
+        }
 
         $jawabanOption = JawabanOptionModel::join('pertanyaan', 'jawaban_option.pertanyaan_id', 'pertanyaan.id')
             ->where('jawaban_id', $jawaban->jawaban_id)->get();
@@ -88,8 +111,8 @@ class QuestionnaireC extends Controller
 
         $tandaTangan = JawabanTandaTanganModel::where('jawaban_id', $jawaban->jawaban_id)->first();
 
-        $pdf = \PDF::loadView('admin.questionnaire.pdf', compact('assignQuestion', 'kategori', 'jawaban', 'jawabanOption', 'questionOptions', 'tandaTangan'));
-        return $pdf->download('pdf');
-//        return view('admin.questionnaire.pdf', compact('assignQuestion', 'kategori', 'jawaban', 'jawabanOption', 'questionOptions', 'tandaTangan'));
+        $pdf = \PDF::loadView('admin.questionnaire.pdf', compact('assignQuestion', 'kategori', 'jawaban', 'jawabanOption', 'questionOptions', 'tandaTangan', 'newInfo', 'namaLengkap'));
+        return $pdf->download($namaLengkap . '-'. $kategori->kategori .'.pdf');
+    //    return view('admin.questionnaire.pdf', compact('assignQuestion', 'kategori', 'jawaban', 'jawabanOption', 'questionOptions', 'tandaTangan', 'newInfo', 'namaLengkap'));
     }
 }
