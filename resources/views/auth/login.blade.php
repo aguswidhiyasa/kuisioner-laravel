@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Kuisioner</title>
-    
+
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
     <style>
@@ -15,7 +15,7 @@
     </style>
 </head>
 <body>
-    
+
     <main id="main-content">
         <div class="w-full max-w-xs m-auto mt-20">
             <div class="login-result"></div>
@@ -56,11 +56,14 @@
                     type: 'post',
                     url: '{{ route('login') }}',
                     data: $(this).serializeArray(),
+                    headers: {
+                        'Accept': 'application/json',
+                    }
                 }).done(function(data) {
                     $('.login-result').html('<div class="flex items-center bg-green-500 text-white text-sm font-bold px-4 py-3" role="alert"><p>Login Sukses</p></div>');
                     setTimeout(function() {
-                        location.reload(true);
-                    });
+                        window.location.href = data.redirect_route;
+                    }, 1000);
                 }).fail(function(data) {
                     $('.login-result').html('<div class="flex items-center bg-red-500 text-white text-sm font-bold px-4 py-3" role="alert"><p>'+ data.responseJSON.message +'</p></div>');
                 });

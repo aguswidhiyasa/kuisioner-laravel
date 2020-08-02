@@ -48,25 +48,50 @@ class QuestionnaireC extends Controller
     {
 //        $this->validate($request, ['users', 'required']);
 
-        $data = [];
-        foreach ($request->users as $users) {
-            $uid = Uuid::uuid1()->getHex();
+        if (isset($request->users)) {
+            $availableAssign = AssignQuestionModel::where('kategori_id', $request->kategori)->get();
 
-            $data[] = [
-                'question_id' => $uid,
-                'kategori_id' => $request->kategori,
-                'user_id' => $users,
-                'answered' => 0
-            ];
-        }
+            // cari pakai bubble short 😬
+            $dataToDelete = array();
+            $dataToAdd = array();
+            foreach ($availableAssign as $avail) {
+                foreach ($request->users as $user) {
+                    if ($avail->user_id != $user) {
+                        $dataToDelete[] = $avail->user_id;
+                    }
+                }
+            }
 
-        $assign = AssignQuestionModel::insert($data);
+            $data = [];
+            foreach ($request->users as $users) {
+                $uid = Uuid::uuid1()->getHex();
+
+                $data[] = [
+                    'question_id' => $uid,
+                    'kategori_id' => $request->kategori,
+                    'user_id' => $users,
+                    'answered' => 0
+                ];
+            }
+
+            $assignToDelete = AssignQuestionModel::whereIn('user_id', $dataToDelete)->delete();
+
+            $assign = AssignQuestionModel::insert($data);
 
 
-        if ($assign) {
-            Helpers::message('Data Berhasil disimpan');
+            if ($assign) {
+                Helpers::message('Data Berhasil disimpan');
+            } else {
+                Helpers::message('Data Gagal disimpan', 'error');
+            }
         } else {
-            Helpers::message('Data Gagal disimpan', 'error');
+            // de;ete
+            $deleteNonSelectedUser = AssignQuestionModel::where('kategori_id', $request->kategori)->delete();
+            if ($deleteNonSelectedUser) {
+                Helpers::message('Semua pengguna berhasil di hapus');
+            } else {
+                Helpers::message('Terjadi Kesalahan', 'error');
+            }
         }
         return response()->redirectToRoute('kuisioner');
     }
@@ -98,7 +123,7 @@ class QuestionnaireC extends Controller
                 $newTitle = "";
                 foreach ($titles as $title) {
                     $newTitle .= " " . ucfirst($title);
-                } 
+                }
 
                 $newInfo[] = ['title' => $newTitle, 'value' => $i];
             }

@@ -7,13 +7,29 @@ use App\Http\Controllers\Controller;
 use App\Models\KategoriModel;
 use App\Models\PertanyaanModel;
 use Illuminate\Http\Request;
+use Yajra\DataTables\DataTables;
 
 class PertanyaanC extends Controller
 {
     //
-    public function index() 
+    public function index()
     {
         return view('admin.pertanyaan.index');
+    }
+
+    public function data(Request $request)
+    {
+        $pertanyaans = PertanyaanModel::select([
+            'pertanyaan.id', 'pertanyaan', 'kategori'
+        ])->join('kategori', 'kategori.id', '=', 'pertanyaan.kategori_id');
+
+        return DataTables::of($pertanyaans)
+            ->addColumn('action' ,function($table) {
+                return '<a href="'. route('kategori.edit', ['id' => $table->id]) .'" class="btn btn-block btn-primary btn-xs"><i class="nav-icon fas fa-pen"></i> Edit</a>'
+                    . '<a href="javascript:void(0)" class="btn btn-block btn-danger btn-xs " onclick="hapus('. $table->id .', \''. $table->pertanyaan .'\')"><i class="fa fa-trash"></i> Delete</a>';
+            })
+            ->addIndexColumn()
+            ->make(true);
     }
 
     public function add()
@@ -48,5 +64,24 @@ class PertanyaanC extends Controller
             Helpers::message('Data Gagal disimpan', 'error');
         }
         return response()->redirectToRoute('pertanyaan');
+    }
+
+    public function delete(Request $request)
+    {
+        $this->validate($request, ['id' => 'required']);
+
+        $pertanyaan = PertanyaanModel::where('id', $request->id)->delete();
+
+        if ($pertanyaan) {
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Pertanyaan berhasil di hapus'
+            ]);
+        } else {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Pertanyaan gagal di hapus'
+            ], 500);
+        }
     }
 }

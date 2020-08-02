@@ -24,7 +24,7 @@
                 @foreach($users as $user)
                     @if ($user->kategori_id == $id ||!isset($user->kategori_id))
                     <tr>
-                        <td><input type="checkbox" name="users[]" class="user-check" value="{{ $user->user_id }}" {{ isset($user->answered) ? 'disabled checked' : ''  }}></td>
+                        <td><input type="checkbox" name="users[]" class="user-check" value="{{ $user->user_id }}" {{ isset($user->answered) ? 'checked' : ''  }}></td>
                         <td>{{ $user->name }}</td>
                         <td>{{ $user->email }}</td>
                         <td>

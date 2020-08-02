@@ -19,7 +19,7 @@
         }
 
         .questionnaire-action {
-            background: #cff6cf;
+            background: lightgrey;
             padding: 15px;
             text-align: center;
         }
@@ -35,8 +35,7 @@
                     <h4>{{ $kat->judul }}</h4>
                 </div>
                 <div class="questionnaire-action">
-                    <a href="{{ route('kuisioner.assign', ['id' => $kat->id]) }}" class="btn btn-secondary"><i class="fa fa-add"></i> Tambah User</a>
-                    <a href="{{ route('kategori.edit', ['id' => $kat->id]) }}" class="btn btn-secondary"><i class="fa fa-pencil"></i> Edit</a>
+                    <a href="{{ route('kuisioner.assign', ['id' => $kat->id]) }}" class="btn btn-success"><i class="fa fa-pencil"></i> Edit</a>
                 </div>
             </div>
         </div>
