@@ -51,7 +51,7 @@ class LoginController extends Controller
 
         return response()->json([
             'status' => 'success',
-            'redirect_route' => $this->redirectTo
+            'redirect_route' => 'home'
         ]);
     }
 
