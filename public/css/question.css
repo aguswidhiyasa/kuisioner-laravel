@@ -1,0 +1,153 @@
+main {
+    width: 100%;
+    background: url('../images/weather.png');
+    background-repeat: repeat;
+    /* background-size: cover; */
+    /* background-position: center; */
+}
+
+main h2 {
+    color: #34495e;
+}
+
+.pertanyaan-container {
+    padding-top: 100px;
+    width: 900px;
+    margin: 0 auto;
+}
+
+.pertanyaan-container.second {
+    padding-top: 32px;
+}
+
+.pertanyaan-container .title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #34495e;
+    margin-bottom: 16px;
+}
+
+.pertanyaan-container .pertanyaan {
+    width: 100%;
+    background: white;
+    padding: 24px 16px 16px 16px;
+    box-shadow: 0 0 5px 0 rgba(199, 199, 199, .4);
+    border-radius: 4px;
+}
+
+.pertanyaan-container .pertanyaan.center {
+    text-align: center;
+}
+
+.pertanyaan-container .pertanyaan-text {
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+
+.pertanyaan-container form {
+    margin-top: 16px;
+}
+
+.pertanyaan-container .custom-radio {
+    padding: 0 8px;
+}
+
+.pertanyaan-container .custom-radio label {
+    font-weight: normal;
+    margin-left: 15px;
+    margin-bottom: 8px;
+}
+
+.pertanyaan-container .custom-button {
+    text-align: right;
+}
+
+.pertanyaan-container .custom-button .btn {
+    color: white;
+}
+
+.pertanyaan-container .custom-button .btn-prev {
+    background-color: #95a5a6
+}
+
+.pertanyaan-container .custom-button .btn-next {
+    background-color: #27ae60
+}
+
+.pertanyaan-container .custom-button .btn-prev:hover {
+    background-color: #ecf0f1
+}
+
+.pertanyaan-container .custom-button .btn-next:hover { background-color: #2ecc71 }
+
+.penjelasan {
+    margin-bottom: 32px;
+}
+
+.info-indikasi {
+    font-size: 18px;
+    text-align: center;
+    margin-bottom: 8px;
+}
+
+.indikasi {
+    text-align: center;
+    margin-bottom: 16px;
+}
+
+.indikasi .indikasi-inner {
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 8px;
+    padding: 5px 15px;
+    display: inline-block;
+    color: white;
+}
+
+.indikasi .indikasi-inner.ringan {
+    background-color: #27ae60;
+}
+
+.indikasi .indikasi-inner.autis {
+    background-color: red;
+}
+
+.penjelasan-text {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.informasi-tool {
+    background-color: #f39c12;
+    border-radius: 4px;
+    text-align: center;
+    color: white;
+    padding: 8px;
+}
+
+.pertanyaan-container .panel-group .panel {
+    box-shadow: none;
+    border: 1px solid #34495e;
+}
+
+.pertanyaan-container .panel-group .panel-heading {
+    background-color: #34495e;
+    color: white;
+
+}
+
+@media (max-width: 991px) {
+    .pertanyaan-container {
+        width: 768px;
+    }
+}
+
+@media (max-width: 768px) {
+    .pertanyaan-container {
+        width: 100%;
+    }
+
+    .pertanyaan-container .custom-button {
+        margin-top: 30px;
+    }
+}

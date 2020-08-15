@@ -66,7 +66,7 @@ class SurveyC extends Controller
             $jawabanM->assigned_id = $assignedQuestion->id;
             $jawabanM->add_data = json_encode([
                 'nama_lengkap'              => $request->nama_lengkap,
-                'guru_mata_pelajaran'                => isset($request->add_info_mapel) ? $request->add_info_mapel : "",
+                'guru_mata_pelajaran'       => isset($request->add_info_mapel) ? $request->add_info_mapel : "",
                 'kelas'                     => isset($request->add_info_kelas) ? $request->add_info_kelas : "",
                 'kompetensi_keahlian'       => isset($request->add_info_kompetensi) ? $request->add_info_kompetensi : "",
             ]);

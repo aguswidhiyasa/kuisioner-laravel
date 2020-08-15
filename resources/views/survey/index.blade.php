@@ -55,6 +55,11 @@
         display: inline-block;
         font-size: 1.2em;
     }
+
+    .error {
+        font-size: 0.875rem;
+        color: red;
+    }
 </style>
 @endsection
 
@@ -66,7 +71,7 @@
 
         <hr>
 
-        {!! Form::open(['url' => route('survey.jawab'), 'id' => 'jawab-survey']) !!}
+        {!! Form::open(['url' => '#', 'id' => 'jawab-survey', 'type' => 'post']) !!}
         {!! Form::hidden('questionnaire_id', $id) !!}
 
         @yield('additional_info')
@@ -82,7 +87,7 @@
                     <div class="text-base mb-2">
                         {!! $pertanyaan->pertanyaan !!}
                     </div>
-                    <div class="pertanyaan-item-option">
+                    <div class="pertanyaan-item-option" data-pertanyaanid="{{ $pertanyaan->id }}">
                         <ul>
                         @foreach ($questionOptions as $question)
                             <li class="text-base mb-2">{!! Form::radio('jawaban['.  $pertanyaan->id .']', $question->id, false) !!}
@@ -136,35 +141,57 @@
     $(function() {
         $('#jawab-survey').submit(function(e) {
             e.preventDefault();
-            var signature = saveSignature();
-            if (signature) {
-                var data = $(this).serializeArray();
-
-                var formdata = new FormData();
-                for (var i = 0; i < data.length; i++) {
-                    formdata.append(data[i].name, data[i].value);
-                }
-                // $.each(data, function(el) {
-
-                // });
-                formdata.append('signature', signature);
-
-                $.ajax({
-                    url: '{{ route('survey.jawab') }}',
-                    data: formdata,
-                    type: 'post',
-                    processData: false,
-                    contentType: false
-                }).done(function(data) {
-                    console.log(data);
-                }).fail(function(data) {
-
-                });
+            if (!checkJawaban()) {
+                alert('Pilih salah satu jawaban');
+                $('html,body').animate({
+                    scrollTop: 0
+                }, 300);
+                return;
             } else {
-                /* do nothing */
+                var signature = saveSignature();
+                if (signature) {
+                    var data = $(this).serializeArray();
+
+                    var formdata = new FormData();
+                    for (var i = 0; i < data.length; i++) {
+                        formdata.append(data[i].name, data[i].value);
+                    }
+                    // $.each(data, function(el) {
+
+                    // });
+                    formdata.append('signature', signature);
+
+                    $.ajax({
+                        url: '{{ route('survey.jawab') }}',
+                        data: formdata,
+                        type: 'post',
+                        processData: false,
+                        contentType: false
+                    }).done(function (data) {
+                        console.log(data);
+                    }).fail(function (data) {
+
+                    });
+                } else {
+                    /* do nothing */
+                }
             }
-        })
+        });
     });
+
+    function checkJawaban() {
+        var pertanyaanOption = $('.pertanyaan-item-option');
+        var sudahDijawab = true;
+        $.each(pertanyaanOption, function(val, index) {
+            $(this).find('.error').remove();
+            var options = $(this).find('input[name^="jawaban"]').is(':checked');
+            if (!options) {
+                sudahDijawab = false;
+                $(this).append('<div class="error">Pilih salah satu jawaban</div>');
+            }
+        });
+        return sudahDijawab;
+    }
 
     function saveSignature() {
         if (signaturePad.isEmpty()) {
