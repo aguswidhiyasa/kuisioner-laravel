@@ -1,21 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7e56a908-9277-4322-ac67-33bce64331fd" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/public/css/global.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/css/question.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/images/weather.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/survey_baru/_question.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/survey_baru/base.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/survey_baru/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/SurveyC.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/SurveyC.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/survey/guru.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/survey/guru.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/survey/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/survey/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/survey/siswa.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/survey/siswa.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
-    </list>
+    <list default="true" id="7e56a908-9277-4322-ac67-33bce64331fd" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -184,7 +170,7 @@
       <workItem from="1595163177850" duration="7508000" />
       <workItem from="1596210063451" duration="3406000" />
       <workItem from="1596327843771" duration="4864000" />
-      <workItem from="1597495010043" duration="6308000" />
+      <workItem from="1597495010043" duration="6438000" />
     </task>
     <servers />
   </component>

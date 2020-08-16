@@ -59,7 +59,7 @@
 <ol>
     <li>Isilah identitas diri pada tempat data responden di atas yaitu nama responden dan mata pelajaran yang diempu responden (nomor di pojok kiri atas dikosongkan).</li>
     <li>Dimohonkan kesediaan Bapak/Ibu guru  untuk menjawab setiap nomor item angket dengan sejujurnya sesuai dengan petunjuk yang ada.</li>
-    <li>Pilihlah jawaban dengan memberikan tanda (√) pada kolom pilihan Bapak/Ibu.</li>
+    <li>Pilihlah jawaban dengan memberikan tanda (<span style="font-family: DejaVu Sans, sans-serif;">✔</span>) pada kolom pilihan Bapak/Ibu.</li>
     <li><strong>Setiap pertanyaan harus dijawab, dan tidak boleh ada yang kosong.</strong></li>
     <li>Tidak ada jawaban yang dianggap salah, benar, baik maupun buruk, karena itu Bapak/Ibu tidak perlu ragu dalam mengisi angket ini.</li>
     <li>Setelah selesai diisi, mohon angket ini agar segera dikembalikan kepada peneliti.</li>
@@ -95,28 +95,28 @@
 <table class='table'>
     <thead>
     <tr>
-        <th rowspan="2">No</th>
-        <th rowspan="2">Pertanyaan</th>
+        <th rowspan="2" width="5%">No</th>
+        <th rowspan="2" width="50%">Pertanyaan</th>
         <th colspan="5"><p align="center">Pilihan Jawaban</p></th>
     </tr>
     <tr>
-        <td><p align="center">SS</p></td>
-        <td><p align="center">S</p></td>
-        <td><p align="center">RR</p></td>
-        <td><p align="center">KS</p></td>
-        <td><p align="center">STS</p></td>
+        <td width="9%"><p align="center">SS</p></td>
+        <td width="9%"><p align="center">S</p></td>
+        <td width="9%"><p align="center">RR</p></td>
+        <td width="9%"><p align="center">KS</p></td>
+        <td width="9%"><p align="center">STS</p></td>
     </tr>
     </thead>
     <tbody>
     <?php $no = 1; ?>
     @foreach($jawabanOption as $option)
         <tr>
-            <td>{{ $no }}</td>
+            <td>{{ $no }}.</td>
             <td>{!! $option->pertanyaan !!}</td>
             @foreach($questionOptions as $qo)
                 <td>
                 @if ($qo->id == $option->option_id)
-                    <p align="center">&radic;</p>
+                    <p align="center"><div style="font-family: DejaVu Sans, sans-serif; font-size: 20px; text-align: center;">✔</div></p>
                 @endif
                 </td>
             @endforeach

@@ -52,6 +52,8 @@ Route::group([], function () {
             Route::get('/tambah-pertanyaan/{id}',   'Admin\\PertanyaanC@addQuestion'    )->name('pertanyaan.add-single');
             Route::post('simpan',                   'Admin\\PertanyaanC@store'          )->name('pertanyaan.store');
             Route::post('hapus',                    'Admin\\PertanyaanC@delete'         )->name('pertanyaan.delete');
+            Route::get('edit/{id}',                 'Admin\\PertanyaanC@edit'           )->name('pertanyaan.edit');
+            Route::post('update',                   'Admin\\PertanyaanC@update'         )->name('pertanyaan.update');
         });
 
         Route::group(['prefix'=> 'kuisioner'], function() {

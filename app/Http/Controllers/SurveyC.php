@@ -74,17 +74,6 @@ class SurveyC extends Controller
 
             $jawabanMasterId = $jawabanM->id;
 
-            // $jawabanMasterId = DB::table('jawaban_master')->insertGetId([
-            //     'user_id'       => $user->id,
-            //     'assigned_id'   => $assignedQuestion->id,
-            //     'add_data'      => json_encode([
-            //         'nama_lengkap'              => $request->nama_lengkap,
-            //         'guru_mata_pelajaran'                => isset($request->add_info_mapel) ? $request->add_info_mapel : "",
-            //         'kelas'                     => isset($request->add_info_kelas) ? $request->add_info_kelas : "",
-            //         'kompetensi_keahlian'       => isset($request->add_info_kompetensi) ? $request->add_info_kompetensi : "",
-            //     ])
-            // ]);
-
             $jawaban = [];
             foreach ($request->jawaban as $pertanyaanId => $jawab) {
                 $jawaban[] = [
@@ -100,8 +89,6 @@ class SurveyC extends Controller
                 'jawaban_id' => $jawabanMasterId,
                 'tanda_tangan' => $request->signature
             ]);
-
-            // return reaload()
         } else {
             return abort(404, "Survey tidak ditemukan");
         }

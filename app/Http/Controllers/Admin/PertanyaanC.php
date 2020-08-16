@@ -25,7 +25,7 @@ class PertanyaanC extends Controller
 
         return DataTables::of($pertanyaans)
             ->addColumn('action' ,function($table) {
-                return '<a href="'. route('kategori.edit', ['id' => $table->id]) .'" class="btn btn-block btn-primary btn-xs"><i class="nav-icon fas fa-pen"></i> Edit</a>'
+                return '<a href="'. route('pertanyaan.edit', ['id' => $table->id]) .'" class="btn btn-block btn-primary btn-xs"><i class="nav-icon fas fa-pen"></i> Edit</a>'
                     . '<a href="javascript:void(0)" class="btn btn-block btn-danger btn-xs " onclick="hapus('. $table->id .', \''. $table->pertanyaan .'\')"><i class="fa fa-trash"></i> Delete</a>';
             })
             ->addIndexColumn()
@@ -42,6 +42,15 @@ class PertanyaanC extends Controller
     public function addQuestion($id = 1)
     {
         return view('admin.pertanyaan.pertanyaan-single',compact('id'));
+    }
+
+    public function edit($id)
+    {
+        $kategori = KategoriModel::getCategoryAsSelect();
+
+        $pertanyaan = PertanyaanModel::find($id);
+
+        return view('admin.pertanyaan.edit', compact('id', 'kategori', 'pertanyaan'));
     }
 
     public function store(Request $request)
@@ -64,6 +73,27 @@ class PertanyaanC extends Controller
             Helpers::message('Data Gagal disimpan', 'error');
         }
         return response()->redirectToRoute('pertanyaan');
+    }
+
+    public function update(Request $request) 
+    {
+        $this->validate($request, [
+            'kategori_id'   => 'required',
+            'pertanyaan'    => 'required'
+        ]);
+
+        $pertanyaan = PertanyaanModel::where('id', $request->id)->first();
+        if ($pertanyaan) {
+            $pertanyaan->update([
+                'kategori_id' => $request->kategori_id,
+                'pertanyaan' => $request->pertanyaan
+            ]);
+
+            Helpers::message('Pertanyaan Berhasil di update');
+            return redirect(route('pertanyaan'));
+        } else {
+            Helpers::message('Pertanyaan Gagal disimpan', 'error');
+        }
     }
 
     public function delete(Request $request)
