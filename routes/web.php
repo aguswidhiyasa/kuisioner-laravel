@@ -63,6 +63,11 @@ Route::group([], function () {
 
             Route::get('download/{id}',              'Admin\\QuestionnaireC@downloadPDF' )->name('kuisioner.download');
         });
+
+        Route::group(['prefix' => 'users'], function() {
+            Route::get('/',                         'Admin\\UserC@index'       )->name('users');
+            Route::get('data',                      'Admin\\UserC@data'         )->name('users.data');
+        });
     });
 
 });
