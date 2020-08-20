@@ -80,7 +80,7 @@
                 });
 
                 var newform = $.map(form, function(data) {
-                    if (data.name !== 'employee[]') {
+                    if (data.name !== 'users[]') {
                         return data;
                     }
                 });
