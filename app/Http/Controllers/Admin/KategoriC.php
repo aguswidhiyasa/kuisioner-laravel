@@ -30,11 +30,13 @@ class KategoriC extends Controller
             ->make(true);
     }
 
-    public function add()
+    public function add($id = "")
     {
         $optionGroup = QuestionOptionGroupModel::getAsSelectOptions();
 
-        return view('admin.kategori.add', compact('optionGroup'));
+        $kategori = KategoriModel::find($id);
+
+        return view('admin.kategori.add', compact('optionGroup', 'id', 'kategori'));
     }
 
     public function store(Request $request)
@@ -43,13 +45,47 @@ class KategoriC extends Controller
             'kategori' => 'required|'
         ]);
 
-        $kategori = KategoriModel::insert([ 'kategori' => $request->kategori, 'deskripsi' => '', 'option_id' => $request->option_group ]);
+        if (isset($request->id) || !empty($request->id)) {
+            $kategori = KategoriModel::findOrFail($request->id);
+            $kategori->update([
+                'kategori'  => $request->kategori,
+                'judul'     => $request->judul,
+                'option_id' => $request->option_group
+            ]);
 
-        if ($kategori) {
-            Helpers::message('Data Berhasil disimpan');
+            if ($kategori) {
+                Helpers::message('Data Berhasil diupdate');
+            } else {
+                Helpers::message('Data Gagal diupdate', 'error');
+            }
         } else {
-            Helpers::message('Data Gagal disimpan', 'error');
+            $kategori = KategoriModel::insert([ 
+                'kategori'  => $request->kategori, 
+                'deskripsi' => '', 'option_id' => $request->option_group,
+                'judul'     => $request->judul
+            ]);
+
+            if ($kategori) {
+                Helpers::message('Data Berhasil disimpan');
+            } else {
+                Helpers::message('Data Gagal disimpan', 'error');
+            }
         }
         return response()->redirectToRoute('kategori');
+    }
+
+    public function delete(Request $request)
+    {
+        $this->validate($request, [ 'id' => 'required' ]);
+
+        $kategori = KategoriModel::find($request->id)->delete();
+
+        return $kategori ? response()->json([
+            'status' => 'success',
+            'message' => 'Data berhasil di hapus'
+        ]) : response()->json([
+            'status' => 'error',
+            'message' => 'Terjadi Kesalahan'
+        ], 501);
     }
 }

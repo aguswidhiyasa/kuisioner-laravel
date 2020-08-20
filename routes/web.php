@@ -36,7 +36,7 @@ Route::group([], function () {
             Route::get('add',           'Admin\\KategoriC@add'      )->name('kategori.add');
             Route::post('store',        'Admin\\KategoriC@store'    )->name('kategori.store');
             Route::get('edit/{id}',     'Admin\\KategoriC@add'      )->name('kategori.edit');
-            Route::get('delete/{id}',   'Admin\\KategoriC@add'      )->name('kategori.delete');
+            Route::post('delete',       'Admin\\KategoriC@delete'   )->name('kategori.delete');
         });
 
         Route::group(['prefix' => 'options'], function() {
@@ -44,7 +44,7 @@ Route::group([], function () {
             Route::get('/data',         'Admin\\OptionC@data'       )->name('options.data');
             Route::get('/add',          'Admin\\OptionC@add'        )->name('options.add');
             Route::post('/store',       'Admin\\OptionC@store'      )->name('options.store');
-            Route::get('/edit/{id}',    'Admin\\OptionsC@edit'      )->name('options.edit');
+            Route::get('/edit/{id}',    'Admin\\OptionC@edit'      )->name('options.edit');
         });
 
         Route::group(['prefix' => 'pertanyaan'], function () {

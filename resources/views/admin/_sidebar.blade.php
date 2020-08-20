@@ -9,7 +9,7 @@
             </a>
         </li>
         <li class="nav-item has-treeview">
-            <a href="{{ route('kategori') }}" class="nav-link {{ App\Helpers\Helpers::activeLink('kategori') }}">
+            <a href="{{ route('kategori') }}" class="nav-link {{ App\Helpers\Helpers::activeLink('kategori*') }}">
                 <i class="nav-icon fas fa-project-diagram"></i>
                 <p>
                     Kategori

@@ -9,31 +9,32 @@
         </div>
         <div class="card-body">
             {{ Form::open(['url' => route('kategori.store'), 'class' => 'form-horizontal']) }}
+                {!! Form::hidden('id', $id, []) !!}
                 <div class="form-group row">
                     {{ Form::label('nama_kategori', 'Nama Kategori', ['class' => 'col-sm-2 col-form-label']) }}
                     <div class="col-sm-10">
-                        {{ Form::text('kategori', null, [ 'class' => 'form-control']) }}
+                        {{ Form::text('kategori', $kategori != null ? $kategori->kategori : null, [ 'class' => 'form-control']) }}
                     </div>
                 </div>
                 <div class="from-group row" style="margin-bottom: 15px">
                     {!! Form::label('judul', 'Judul', ['class' => 'col-sm-2 col-from-label']) !!}
                     <div class="col-sm-10">
-                        {!! Form::text('judul', null, ['class' => 'form-control']) !!}
+                        {!! Form::text('judul', $kategori != null ? $kategori->judul : null, ['class' => 'form-control']) !!}
                     </div>
                 </div>
                 <div class="form-group row">
                     {!! Form::label('option', "Options", ['class' => 'col-sm-2 col-form-label']) !!}
                     <div class="col-sm-10">
-                        {!! Form::select('option_group', $optionGroup, null, ['class' => 'form-control']) !!}
+                        {!! Form::select('option_group', $optionGroup, $kategori != null ? $kategori->option_id : null, ['class' => 'form-control']) !!}
                     </div>
                 </div>
-                <div class="form-group row">
+                {{-- <div class="form-group row">
                     {!! Form::label('tambahan_info', "Tambahan Info", ['class' => 'col-sm-2 col-form-label']) !!}
                     <div class="col-sm-10">
-                        {!! Form::text('tambahan_info', null, ['class' => 'form-control']) !!}
+                        {!! Form::text('tambahan_info', $kategori != null ? $kategori->tambahan_info : null, ['class' => 'form-control']) !!}
                         <span class="help-block">Pisahkan dengan koma (,)</span>
                     </div>
-                </div>
+                </div> --}}
                 <div class="form-group">
                     {{ Form::submit('Simpan', ['class' => 'btn btn-success']) }}
                 </div>

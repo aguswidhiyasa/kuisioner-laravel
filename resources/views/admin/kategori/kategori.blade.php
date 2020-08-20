@@ -47,5 +47,23 @@
                 ]
             });
         });
+
+        function hapus(id, name) {
+            if (confirm('Apakah anda yakin ingin menghapus ' + name+ "?")) {
+                $.post('{{ route('kategori.delete') }}', {
+                    id: id,
+                    '_token': "{{ csrf_token() }}"
+                }).done(function(data) {
+                    if (data.status == 'success') {
+                        toastr.success(data.message);
+                        setTimeout(function() {
+                            window.location.reload(true);
+                        }, 500);
+                    }
+                }).fail(function(data) {
+                    toastr.success(data.message);
+                });
+            }
+        }
     </script>
 @endsection
