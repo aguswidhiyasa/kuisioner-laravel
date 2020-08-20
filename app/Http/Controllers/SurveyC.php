@@ -93,4 +93,8 @@ class SurveyC extends Controller
             return abort(404, "Survey tidak ditemukan");
         }
     }
+
+    public function end() {
+        return view('survey.end');
+    }
 }

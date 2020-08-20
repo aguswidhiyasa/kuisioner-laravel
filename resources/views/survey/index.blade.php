@@ -60,6 +60,11 @@
         font-size: 0.875rem;
         color: red;
     }
+
+    ol {
+        list-style: decimal;
+        padding-left: 1.5em;
+    }
 </style>
 @endsection
 
@@ -76,8 +81,8 @@
 
         @yield('additional_info')
 
-        <div class="pertanyaan-wrapper form-horizontal">
-
+        <div class="pertanyaan-wrapper form-horizontal mt-4">
+            <h5 class="font-bold mb-4">Pertanyaan</h5>
             <?php $num = 1; ?>
             <table class="">
             @foreach ($pertanyaans as $pertanyaan)
@@ -168,7 +173,7 @@
                         processData: false,
                         contentType: false
                     }).done(function (data) {
-                        window.location.href = "{{ url('/') }}";
+                        window.location.href = "{{ route('survey.end') }}";
                     }).fail(function (data) {
 
                     });

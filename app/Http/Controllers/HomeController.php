@@ -31,6 +31,12 @@ class HomeController extends Controller
         $assignedQuestionnaire = AssignQuestionModel::join('kategori', 'assign_question.kategori_id', '=', 'kategori.id')
             ->where('user_id', $userId)->get();
 
-        return view('home', compact('assignedQuestionnaire'));
+        // jika kuisioner hanya 1, redirect
+        if (count($assignedQuestionnaire) == 1) {
+            $questionnaire = $assignedQuestionnaire[0];
+            return redirect()->route('survey', [ 'id' => $questionnaire->question_id ]);
+        } else {
+            return view('home', compact('assignedQuestionnaire'));
+        }
     }
 }

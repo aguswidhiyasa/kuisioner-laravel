@@ -21,6 +21,8 @@ Route::group([], function () {
         Route::get('/home',                 'HomeController@index')->name('user.home');
         Route::get('jawab-survey/{id}',     'SurveyC@index')->name('survey');
         Route::post('simpan-jawaban',       'SurveyC@jawab')->name('survey.jawab');
+
+        Route::get('end',                   'SurveyC@end')->name('survey.end');
     });
 
 
