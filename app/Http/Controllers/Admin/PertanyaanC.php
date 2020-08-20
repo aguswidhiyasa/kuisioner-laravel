@@ -14,7 +14,12 @@ class PertanyaanC extends Controller
     //
     public function index()
     {
-        return view('admin.pertanyaan.index');
+
+        $categories = KategoriModel::getCategoryAsSelect();
+
+        $categories = array_replace(['' => 'Semua'], $categories);
+
+        return view('admin.pertanyaan.index', compact('categories'));
     }
 
     public function data(Request $request)
@@ -22,8 +27,13 @@ class PertanyaanC extends Controller
         $pertanyaans = PertanyaanModel::select([
             'pertanyaan.id', 'pertanyaan', 'kategori.kategori'
         ])
-            ->join('kategori', 'kategori.id', '=', 'pertanyaan.kategori_id')
-            ->get();
+            ->join('kategori', 'kategori.id', '=', 'pertanyaan.kategori_id');
+
+        if (isset($request->jenis)) {
+            $pertanyaans->where('kategori_id', $request->jenis);
+        }
+
+        $pertanyaans = $pertanyaans->get();
 
         return DataTables::of($pertanyaans)
             ->addColumn('action' ,function($table) {

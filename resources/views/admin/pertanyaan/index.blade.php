@@ -16,6 +16,20 @@
             <a href="{{ route('pertanyaan.add') }}" class="btn btn-success"><i class="fa fa-add"></i> Tambah Pertanyaan</a>
             <br>
             <br>
+
+            <div class="kategori-filter-wrapper">
+                <div class="form-group row">
+                    <div class="col-md-8 col-xs-12"></div>
+                    <label for="kategori_label" class="col-form-label col-md-2 col-xs-6">Filter Berdasarkan</label>
+                    <div class="col-md-2 col-xs-6" style="float: right">
+                        {!! Form::select('kategori', $categories, null, ['id' => 'kategori_filter', 'class' => 'form-control']) !!}
+                    </div>
+                </div>
+                
+            </div>
+            
+            <br>
+
             <table id="table-pertanyaan" class="table table-bordered table-striped">
                 <thead>
                 <tr>
@@ -46,6 +60,11 @@
                     { data: 'kategori', name: 'kategori' },
                     { data: 'action', name: 'action' },
                 ]
+            });
+
+            $('#kategori_filter').change(function() {
+                var data = $(this).find(':selected').val();
+                datauser.ajax.url('{{ route('pertanyaan.data') }}?jenis=' + data).load();
             });
         });
 
