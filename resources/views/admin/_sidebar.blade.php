@@ -32,13 +32,28 @@
                 </p>
             </a>
         </li>
-        <li class="nav-item has-treeview">
-            <a href="{{ route('kuisioner') }}" class="nav-link {{ App\Helpers\Helpers::activeLink('kuisioner') }}">
+        <li class="nav-item has-treeview {{ App\Helpers\Helpers::activeLink(['kuisioner', 'kuisioner.master'], true) }}">
+            <a href="javascript:void(0)" class="nav-link">
                 <i class="nav-icon fas fa-file-signature"></i>
                 <p>
                     Kuisioner
+                    <i class="fas fa-angle-left right"></i>
                 </p>
             </a>
+            <ul class="nav nav-treeview">
+                <li class="nav-item">
+                    <a href="{{ route('kuisioner.master') }}" class="nav-link {{ App\Helpers\Helpers::activeLink('kuisioner.master') }}">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Tambah Kuisioner</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('kuisioner') }}" class="nav-link {{ App\Helpers\Helpers::activeLink('kuisioner') }}">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Jawaban Kuisioner</p>
+                    </a>
+                </li>
+            </ul>
         </li>
         <li class="nav-item has-treeview">
             <a href="{{ route('users') }}" class="nav-link {{ App\Helpers\Helpers::activeLink('users') }}">

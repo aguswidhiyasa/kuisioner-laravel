@@ -58,8 +58,12 @@ Route::group([], function () {
 
         Route::group(['prefix'=> 'kuisioner'], function() {
             Route::get('/',                          'Admin\\QuestionnaireC@index'       )->name('kuisioner');
+
+            Route::get('assign',                    'Admin\\QuestionnaireC@masterAssign'    )->name('kuisioner.master');
+
             Route::get('/assign/{id}',               'Admin\\QuestionnaireC@assign'      )->name('kuisioner.assign');
             Route::post('/assign/simpan',            'Admin\\QuestionnaireC@assignStore' )->name('kuisioner.simpan');
+            Route::get('/assign/{id}/remove/{quisioner}',        'Admin\\QuestionnaireC@deAssignedQuestionnaire')->name('kuisioner.delete');
 
             Route::get('download/{id}',              'Admin\\QuestionnaireC@downloadPDF' )->name('kuisioner.download');
         });
@@ -67,6 +71,10 @@ Route::group([], function () {
         Route::group(['prefix' => 'users'], function() {
             Route::get('/',                         'Admin\\UserC@index'       )->name('users');
             Route::get('data',                      'Admin\\UserC@data'         )->name('users.data');
+            Route::get('add',                       'Admin\\UserC@adduser'      )->name('users.add');
+
+            Route::post('store',                    'Admin\\UserC@store'        )->name('users.store');
+            Route::post('delete',                   'Admin\\UserC@delete'       )->name('users.delete');
         });
     });
 

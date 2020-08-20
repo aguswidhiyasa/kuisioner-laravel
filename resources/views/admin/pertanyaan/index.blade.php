@@ -2,6 +2,11 @@
 
 @section('title', "Pertanyaan")
 
+@section('css')
+    <link rel="stylesheet" href="{{ asset('plugins/admin-lte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('plugins/admin-lte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
+@endsection
+
 @section('content')
     <div class="card card-default">
         <div class="card-header">
@@ -11,7 +16,7 @@
             <a href="{{ route('pertanyaan.add') }}" class="btn btn-success"><i class="fa fa-add"></i> Tambah Pertanyaan</a>
             <br>
             <br>
-            <table id="table-pertanyaan" class="table table-bordered table-hover dataTable dtr-inline">
+            <table id="table-pertanyaan" class="table table-bordered table-striped">
                 <thead>
                 <tr>
                     <td width="10%">#</td>

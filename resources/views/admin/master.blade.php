@@ -42,11 +42,14 @@
         <!-- Right navbar links -->
         <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-                <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
-                    <i class="fas fa-th-large"></i>
+                <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="nav-link">
+                    <i class="fas fa-sign-out-alt"></i>
                 </a>
             </li>
         </ul>
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+            @csrf
+        </form>
     </nav>
     <!-- /.navbar -->
 
@@ -59,13 +62,6 @@
 
         <!-- Sidebar -->
         <div class="sidebar">
-            <!-- Sidebar user panel (optional) -->
-            <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-                <div class="info">
-                    <a href="#" class="d-block">{{ \Illuminate\Support\Facades\Auth::user()->name }}</a>
-                </div>
-            </div>
-
             @include('admin._sidebar')
         </div>
         <!-- /.sidebar -->

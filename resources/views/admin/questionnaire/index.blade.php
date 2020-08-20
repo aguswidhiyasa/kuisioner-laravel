@@ -28,17 +28,16 @@
 
 @section('content')
     <div class="row">
+        <?php $bgColor = ['blue', 'green', 'yellow']; $i = 0; ?>
         @foreach($kategori as $kat)
-        <div class="col-md-3">
-            <div class="questionnaire-wrapper">
-                <div class="questionnaire-title">
-                    <h4>{{ $kat->judul }}</h4>
-                </div>
-                <div class="questionnaire-action">
-                    <a href="{{ route('kuisioner.assign', ['id' => $kat->id]) }}" class="btn btn-success"><i class="fa fa-pencil"></i> Edit</a>
-                </div>
+        <div class="col-sm-4">
+            <a href="{{ route('kuisioner.assign', ['id' => $kat->id]) }}">
+            <div class="position-relative p-3 bg-{{ $bgColor[$i] }}" style="height: 180px">
+                {{ $kat->judul }}<br>
             </div>
+            </a>
         </div>
+        <?php $i++; ?>
         @endforeach
     </div>
 @endsection

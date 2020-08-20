@@ -20,8 +20,10 @@ class PertanyaanC extends Controller
     public function data(Request $request)
     {
         $pertanyaans = PertanyaanModel::select([
-            'pertanyaan.id', 'pertanyaan', 'kategori'
-        ])->join('kategori', 'kategori.id', '=', 'pertanyaan.kategori_id');
+            'pertanyaan.id', 'pertanyaan', 'kategori.kategori'
+        ])
+            ->join('kategori', 'kategori.id', '=', 'pertanyaan.kategori_id')
+            ->get();
 
         return DataTables::of($pertanyaans)
             ->addColumn('action' ,function($table) {

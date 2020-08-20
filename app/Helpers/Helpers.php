@@ -25,8 +25,20 @@ class Helpers {
      *
      * @return string
     */
-    public static function activeLink($routeName)
+    public static function activeLink($routeName, $withSubPages = false)
     {
-        return \Route::is($routeName) ? "active" : '';
+        $class = $withSubPages ? 'active menu-open' : 'active';
+        if (is_array($routeName)) {
+            $isRoute = false;
+            foreach ($routeName as $route) {
+                if (\Route::is($route)) {
+                    $isRoute = true;
+                }
+            }
+
+            return $isRoute ? $class : '';
+        } else {
+            return \Route::is($routeName) ? $class : '';
+        }
     }
 }

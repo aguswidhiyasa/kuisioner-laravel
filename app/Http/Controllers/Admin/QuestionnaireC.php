@@ -13,6 +13,7 @@ use App\Models\QuestionOptionModel;
 use App\User;
 use Illuminate\Http\Request;
 use Ramsey\Uuid\Uuid;
+use Yajra\DataTables\DataTables;
 
 class QuestionnaireC extends Controller
 {
@@ -26,8 +27,22 @@ class QuestionnaireC extends Controller
 
     public function assign($id)
     {
-
         $kategori = KategoriModel::find($id);
+
+        $assignQuestion = AssignQuestionModel::
+            join('users', 'assign_question.user_id', 'users.id')
+            ->leftJoin('jawaban_master', 'assign_question.id', 'jawaban_master.assigned_id')
+            ->where('assign_question.kategori_id', $id)
+            ->orderBy('assign_question.answered', 'DESC')
+            ->get();
+
+        return view('admin.questionnaire.master', compact('assignQuestion', 'id'));
+    }
+
+    public function masterAssign()
+    {
+        $categories = KategoriModel::get();
+        $selectCategories = KategoriModel::getCategoryAsSelect();
 
         $users = User::select([
             'assign_question.question_id as assign_id',
@@ -36,64 +51,130 @@ class QuestionnaireC extends Controller
             'name',
             'email',
             'answered'
-        ])->leftJoin('assign_question', 'users.id', 'assign_question.user_id')
+        ])
+            ->leftJoin('assign_question', 'users.id', 'assign_question.user_id')
             ->where('tipe_user', 'USER')
+            ->where('assign_question.id', NULL)
             ->orderBy('users.id')
             ->get();
 
-        return view('admin.questionnaire.assign', compact('kategori', 'id', 'users'));
+        return view('admin.questionnaire.assign', compact('categories', 'users', 'selectCategories'));
     }
 
     public function assignStore(Request $request)
     {
-//        $this->validate($request, ['users', 'required']);
-
         if (isset($request->users)) {
-            $availableAssign = AssignQuestionModel::where('kategori_id', $request->kategori)->get();
+            $toInsertUser = [];
 
-            // cari pakai bubble short 😬
-            $dataToDelete = array();
-            $dataToAdd = array();
-            foreach ($availableAssign as $avail) {
-                foreach ($request->users as $user) {
-                    if ($avail->user_id != $user) {
-                        $dataToDelete[] = $avail->user_id;
-                    }
-                }
-            }
-
-            $data = [];
-            foreach ($request->users as $users) {
+            foreach ($request->users as $user) {
                 $uid = Uuid::uuid1()->getHex();
-
-                $data[] = [
-                    'question_id' => $uid,
-                    'kategori_id' => $request->kategori,
-                    'user_id' => $users,
-                    'answered' => 0
-                ];
+                $toInsertUser[] = array(
+                    'question_id'   => $uid,
+                    'kategori_id'   => $request->jenis,
+                    'user_id'       => $user,
+                    'answered'      => 0
+                );
             }
 
-            $assignToDelete = AssignQuestionModel::whereIn('user_id', $dataToDelete)->delete();
-
-            $assign = AssignQuestionModel::insert($data);
-
+            $assign = AssignQuestionModel::insert($toInsertUser);
 
             if ($assign) {
-                Helpers::message('Data Berhasil disimpan');
+                return response()->json([
+                    'status' => 'success',
+                    'message' => 'Kuisioner berhasil di tambahkan'
+                ]);
             } else {
-                Helpers::message('Data Gagal disimpan', 'error');
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'Tidak dapat menambahkan kuisioner'
+                ], 501);
             }
         } else {
-            // de;ete
-            $deleteNonSelectedUser = AssignQuestionModel::where('kategori_id', $request->kategori)->delete();
-            if ($deleteNonSelectedUser) {
-                Helpers::message('Semua pengguna berhasil di hapus');
-            } else {
-                Helpers::message('Terjadi Kesalahan', 'error');
-            }
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Tidak ada user yang dipilih'
+            ], 501);
         }
+
+        // if (isset($request->users)) {
+        //     $availableAssign = AssignQuestionModel::where('kategori_id', $request->kategori)->get();
+
+        //     // cari pakai bubble short 😬
+        //     $dataToDelete = array();
+        //     $dataToAdd = array();
+        //     foreach ($availableAssign as $avail) {
+        //         foreach ($request->users as $user) {
+        //             if ($avail->user_id != $user) {
+        //                 $dataToDelete[] = $avail->user_id;
+        //             }
+        //         }
+        //     }
+
+        //     $data = [];
+        //     foreach ($request->users as $users) {
+        //         $uid = Uuid::uuid1()->getHex();
+
+        //         $data[] = [
+        //             'question_id' => $uid,
+        //             'kategori_id' => $request->kategori,
+        //             'user_id' => $users,
+        //             'answered' => 0
+        //         ];
+        //     }
+
+        //     $assignToDelete = AssignQuestionModel::whereIn('user_id', $dataToDelete)->delete();
+
+        //     $assign = AssignQuestionModel::insert($data);
+
+
+        //     if ($assign) {
+        //         Helpers::message('Data Berhasil disimpan');
+        //     } else {
+        //         Helpers::message('Data Gagal disimpan', 'error');
+        //     }
+        // } else {
+        //     // de;ete
+        //     $deleteNonSelectedUser = AssignQuestionModel::where('kategori_id', $request->kategori)->delete();
+        //     if ($deleteNonSelectedUser) {
+        //         Helpers::message('Semua pengguna berhasil di hapus');
+        //     } else {
+        //         Helpers::message('Terjadi Kesalahan', 'error');
+        //     }
+        // }
         return response()->redirectToRoute('kuisioner');
+    }
+
+    public function deAssignedQuestionnaire(Request $request)
+    {
+        $mAssignQuestion = AssignQuestionModel::where('question_id', $request->quisioner);
+        $assignQuestion = $mAssignQuestion->first();
+        if ($assignQuestion != null) {
+            $mJawabanMaster = JawabanMasterModel::where('assigned_id', $assignQuestion->id);
+            $jawabanMaster = $mJawabanMaster->first();
+
+            if ($jawabanMaster != null) {
+                // remove ttd,
+                $tandaTangan = JawabanTandaTanganModel::where('jawaban_id', $jawabanMaster->id)->delete();
+
+                // remove jawabanOptions
+                $jawabanOption = JawabanOptionModel::where('jawaban_id', $jawabanMaster->id)->delete();
+
+                // remove jawaban master
+                $mJawabanMaster->delete();
+
+                // assign_question update status jadi 0
+                $mAssignQuestion->update([ 'answered' => 0 ]);
+
+                Helpers::message('Kuisioner berhasil di hapus');
+            } else {
+                $mJawabanMaster->delete();
+                $mAssignQuestion->delete();
+                Helpers::message('Kuisioner berhasil di hapus');
+            }
+        } else {
+            Helpers::message('Kuisioner tidak ditemukan', 'error');
+        }
+        return response()->redirectToRoute('kuisioner.assign', [ 'id' => $request->id ]);
     }
 
     public function downloadPDF($id)
