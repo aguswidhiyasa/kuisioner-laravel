@@ -42,7 +42,8 @@ class KategoriC extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'kategori' => 'required|'
+            'kategori' => 'required|',
+            'template' => 'required'
         ]);
 
         if (isset($request->id) || !empty($request->id)) {
@@ -50,7 +51,9 @@ class KategoriC extends Controller
             $kategori->update([
                 'kategori'  => $request->kategori,
                 'judul'     => $request->judul,
-                'option_id' => $request->option_group
+                'deskripsi' => '',
+                'option_id' => $request->option_group,
+                'template'  => $request->template
             ]);
 
             if ($kategori) {
@@ -61,8 +64,10 @@ class KategoriC extends Controller
         } else {
             $kategori = KategoriModel::insert([ 
                 'kategori'  => $request->kategori, 
-                'deskripsi' => '', 'option_id' => $request->option_group,
-                'judul'     => $request->judul
+                'deskripsi' => '', 
+                'option_id' => $request->option_group,
+                'judul'     => $request->judul,
+                'template'  => $request->template
             ]);
 
             if ($kategori) {

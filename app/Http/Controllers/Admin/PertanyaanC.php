@@ -40,6 +40,7 @@ class PertanyaanC extends Controller
                 return '<a href="'. route('pertanyaan.edit', ['id' => $table->id]) .'" class="btn btn-block btn-primary btn-xs"><i class="nav-icon fas fa-pen"></i> Edit</a>'
                     . '<a href="javascript:void(0)" class="btn btn-block btn-danger btn-xs " onclick="hapus('. $table->id .', \''. $table->pertanyaan .'\')"><i class="fa fa-trash"></i> Delete</a>';
             })
+            ->rawColumns(['pertanyaan', 'action'])
             ->addIndexColumn()
             ->make(true);
     }

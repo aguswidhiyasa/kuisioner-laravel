@@ -28,6 +28,15 @@
                         {!! Form::select('option_group', $optionGroup, $kategori != null ? $kategori->option_id : null, ['class' => 'form-control']) !!}
                     </div>
                 </div>
+                <div class="form-group row">
+                    {!! Form::label('template', "Template", ['class' => 'col-sm-2 col-form-label']) !!}
+                    <div class="col-sm-3 col-xs-12">
+                        {!! Form::select('template', [
+                            'guru' => "Guru",
+                            'siswa' => "Siswa"
+                        ], ($kategori != null) ? $kategori->template : null, ['class' => 'form-control']) !!}
+                    </div>
+                </div>
                 {{-- <div class="form-group row">
                     {!! Form::label('tambahan_info', "Tambahan Info", ['class' => 'col-sm-2 col-form-label']) !!}
                     <div class="col-sm-10">
