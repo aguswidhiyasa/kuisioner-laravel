@@ -4,7 +4,7 @@
 <div class="petunjuk-pengisian mt-6 mb-6">
     <h5 class="font-bold mb-4">Petunjuk Pengisian</h5>
     <ol>
-        <li>Isilah identitas diri pada tempat data responden di bawah yaitu nama responden dan mata pelajaran yang diempu responden.</li>
+        <li>Isilah identitas diri anda pada tempat data responden di bawah yaitu nama responden, kelas serta kompetensi keahlian.</li>
         <li>Dimohonkan kesediaan Siswa/Siswi untuk menjawab setiap nomor item angket dengan sejujurnya sesuai dengan petunjuk yang ada.</li>
         <li>Pilihlah jawaban dengan mengklik pada bulatan yang tersedia.</li>
         <li>Setiap pertanyaan harus dijawab, dan tidak boleh ada yang kosong.</li>
