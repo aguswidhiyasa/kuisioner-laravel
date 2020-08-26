@@ -220,8 +220,8 @@ class QuestionnaireC extends Controller
 
         $tandaTangan = JawabanTandaTanganModel::where('jawaban_id', $jawaban->jawaban_id)->first();
 
-        // $pdf = \PDF::loadView('admin.questionnaire.pdf', compact('assignQuestion', 'kategori', 'jawaban', 'jawabanOption', 'questionOptions', 'tandaTangan', 'newInfo', 'namaLengkap', 'optionGroup'));
-        // return $pdf->download($namaLengkap . '-'. $kategori->kategori .'.pdf');
-       return view('admin.questionnaire.pdf', compact('assignQuestion', 'kategori', 'jawaban', 'jawabanOption', 'questionOptions', 'tandaTangan', 'newInfo', 'namaLengkap', 'optionGroup'));
+        $pdf = \PDF::loadView('admin.questionnaire.pdf', compact('assignQuestion', 'kategori', 'jawaban', 'jawabanOption', 'questionOptions', 'tandaTangan', 'newInfo', 'namaLengkap', 'optionGroup'));
+        return $pdf->download($namaLengkap . '-'. $kategori->kategori .'.pdf');
+    //    return view('admin.questionnaire.pdf', compact('assignQuestion', 'kategori', 'jawaban', 'jawabanOption', 'questionOptions', 'tandaTangan', 'newInfo', 'namaLengkap', 'optionGroup'));
     }
 }

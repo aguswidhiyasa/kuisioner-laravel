@@ -59,7 +59,7 @@ class SurveyC extends Controller
 
         if ($assignedQuestion) {
             // Marks Questionnaire already ansered
-            // $assignedQuestionRaw->update(['answered' => 1]);
+            $assignedQuestionRaw->update(['answered' => 1]);
 
             // get last by id
             $startNumber = "";
