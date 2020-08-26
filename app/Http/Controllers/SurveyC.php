@@ -59,11 +59,26 @@ class SurveyC extends Controller
 
         if ($assignedQuestion) {
             // Marks Questionnaire already ansered
-            $assignedQuestionRaw->update(['answered' => 1]);
+            // $assignedQuestionRaw->update(['answered' => 1]);
+
+            // get last by id
+            $startNumber = "";
+            $jawabanMaster = AssignQuestionModel::join('jawaban_master', 'assign_question.id', 'jawaban_master.assigned_id')
+                ->where('kategori_id', $assignedQuestion->kategori_id)
+                ->orderBy('jawaban_master.id', 'DESC')
+                ->limit(1)
+                ->first();
+            if ($jawabanMaster == null) {
+                $startNumber = $assignedQuestion->kategori_id . '-1';
+            } else {
+                $lastNumber = explode('-', $jawabanMaster->nomor);
+                $startNumber = $lastNumber[0] . '-' . ($lastNumber[1] + 1);
+            }
 
             $jawabanM = new JawabanMasterModel;
             $jawabanM->user_id = $user->id;
             $jawabanM->assigned_id = $assignedQuestion->id;
+            $jawabanM->nomor = $startNumber;
             $jawabanM->add_data = json_encode([
                 'nama_lengkap'              => $request->nama_lengkap,
                 'guru_mata_pelajaran'       => isset($request->add_info_mapel) ? $request->add_info_mapel : "",

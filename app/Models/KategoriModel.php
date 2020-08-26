@@ -21,4 +21,9 @@ class KategoriModel extends Model
         }
         return $data;
     }
+
+    public function optionGroup()
+    {
+        return $this->belongsTo('App\Models\QuestionOptionGroupModel', 'option_id', 'id');
+    }
 }

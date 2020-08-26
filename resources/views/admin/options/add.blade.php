@@ -9,16 +9,45 @@
         </div>
         <div class="card-body">
             {{ Form::open(['url' => route('options.store'), 'class' => 'form-horizontal']) }}
+                @if (isset($id)) 
+                {!! Form::hidden('id', $id, []) !!}
+                @endif
                 <div class="form-group row">
                     {!! Form::label('title', "Judul", ['class' => 'col-md-2']) !!}
                     <div class="col-md-10">
-                        {!! Form::text('judul', null, ['class' => 'form-control']) !!}
+                        {!! Form::text('judul', $optionGroup->name, ['class' => 'form-control']) !!}
                     </div>
                 </div>
 
                 <div class="option-wrapper"></div>
                 
                 <div class="form-group">
+                    @forelse ($options as $option)
+                    <div class="row grouped">
+                        {!! Form::hidden('group_id[]', $option->id, []) !!}
+                        <div class="col-md-4 col-xs-12">
+                            <div class="form-group">
+                                {!! Form::label('options_name', "Nama Option", []) !!}
+                                {!! Form::text('options[]', $option->title, ['class' => 'form-control']) !!}
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-xs-12">
+                            <div class="form-group">
+                                {!! Form::label('short_name', "Nama Singkat", []) !!}
+                                {!! Form::text('short_name[]', $option->short_name, ['class' => 'form-control']) !!}
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-xs-12">
+                            <div class="form-group">
+                                {!! Form::label('options_name', "Nilai", []) !!}
+                                {!! Form::text('option_value[]', $option->weight, ['class' => 'form-control']) !!}
+                            </div>
+                        </div>
+                        
+                    </div>
+                    @empty
+                        
+                    @endforelse
                     <a href="#" class="btn btn-sm btn-primary tambah-opsi">Tambah Opsi</a>
                 </div>
 
@@ -31,13 +60,19 @@
 
     <template id="options">
         <div class="row">
-            <div class="col-md-5 col-xs-12">
+            <div class="col-md-4 col-xs-12">
                 <div class="form-group">
                     {!! Form::label('options_name', "Nama Option", []) !!}
                     {!! Form::text('options[]', null, ['class' => 'form-control']) !!}
                 </div>
             </div>
-            <div class="col-md-5 col-xs-12">
+            <div class="col-md-4 col-xs-12">
+                <div class="form-group">
+                    {!! Form::label('short_name', "Nama Singkat", []) !!}
+                    {!! Form::text('short_name[]', null, ['class' => 'form-control']) !!}
+                </div>
+            </div>
+            <div class="col-md-4 col-xs-12">
                 <div class="form-group">
                     {!! Form::label('options_name', "Nilai", []) !!}
                     {!! Form::text('option_value[]', null, ['class' => 'form-control']) !!}

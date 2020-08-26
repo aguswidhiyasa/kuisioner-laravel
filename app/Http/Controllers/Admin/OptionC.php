@@ -36,38 +36,63 @@ class OptionC extends Controller
         return view('admin.options.add');
     }
 
+    public function edit($id) 
+    {
+        $optionGroup    = QuestionOptionGroupModel::find($id);
+        $options        = QuestionOptionGroupModel::find($id)->questionOptions;
+
+        return view('admin.options.add', compact('id', 'optionGroup', 'options'));
+    }
+
     public function store(Request $request)
     {
         $this->validate($request, [
             'judul'     => 'required'
         ]);
 
-        $optionGroupId = DB::table('question_option_group')->insertGetId([
-            'name' => $request->judul
-        ]);
+        $options = null;
 
-        $optionItems = [];
-        $optionSize = count($request->options);
-        for ($i = 0; $i < $optionSize; $i++) {
-            $optionItems[] = [
-                'option_group'  => $optionGroupId,
-                'title'         => $request->options[$i],
-                'weight'        => $request->option_value[$i]
-            ];
-        }
+        if (isset($request->id)) {
+            $optionGroup = QuestionOptionGroupModel::find($request->id);
+            $optionGroup->name = $request->judul;
+            $optionGroup->save();
 
-        $options = QuestionOptionModel::insert($optionItems);
-
-        if ($options) {
-            Helpers::message('Data Berhasil disimpan');
+            $optionsCount = count($request->options);
+            for ($i = 0; $i < $optionsCount; $i++) {
+                $o = QuestionOptionModel::updateOrCreate([
+                    'id' => isset($request->group_id[$i]) ? $request->group_id[$i] : null
+                ], [
+                    'option_group'  => $request->id,
+                    'title'         => $request->options[$i],
+                    'short_name'    => $request->short_name[$i],
+                    'weight'        => $request->option_value[$i]
+                ]);
+            }
+            // $options = true;
         } else {
-            Helpers::message('Data Gagal disimpan', 'error');
+            $optionGroupId = DB::table('question_option_group')->insertGetId([
+                'name' => $request->judul
+            ]);
+    
+            $optionItems = [];
+            $optionSize = count($request->options);
+            for ($i = 0; $i < $optionSize; $i++) {
+                $optionItems[] = [
+                    'option_group'  => $optionGroupId,
+                    'title'         => $request->options[$i],
+                    'short_name'    => $request->short_name[$i],
+                    'weight'        => $request->option_value[$i]
+                ];
+            }
+    
+            $options = QuestionOptionModel::insert($optionItems);
         }
-        return response()->redirectToRoute('kategori');
-    }
 
-    public function edit($id) 
-    {
-
+        // if ($options) {
+        //     Helpers::message('Data Berhasil disimpan');
+        // } else {
+        //     Helpers::message('Data Gagal disimpan', 'error');
+        // }
+        // return response()->redirectToRoute('kategori');
     }
 }

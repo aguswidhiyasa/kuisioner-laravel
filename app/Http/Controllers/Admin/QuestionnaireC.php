@@ -9,6 +9,7 @@ use App\Models\JawabanMasterModel;
 use App\Models\JawabanOptionModel;
 use App\Models\JawabanTandaTanganModel;
 use App\Models\KategoriModel;
+use App\Models\QuestionOptionGroupModel;
 use App\Models\QuestionOptionModel;
 use App\User;
 use Illuminate\Http\Request;
@@ -183,8 +184,10 @@ class QuestionnaireC extends Controller
 
         $kategori = KategoriModel::find($assignQuestion->kategori_id);
 
+        $optionGroup = QuestionOptionGroupModel::with('questionOptions')->first();
+
         $jawaban = JawabanMasterModel::select([
-            'jawaban_master.id as jawaban_id', 'jawaban_master.add_data', 'jawaban_master.created_at'
+            'jawaban_master.id as jawaban_id', 'jawaban_master.add_data', 'jawaban_master.created_at', 'nomor'
         ])->join('assign_question', 'assign_question.id', '=', 'jawaban_master.assigned_id')
             ->where('assign_question.question_id', $id)
             ->first();
@@ -217,8 +220,8 @@ class QuestionnaireC extends Controller
 
         $tandaTangan = JawabanTandaTanganModel::where('jawaban_id', $jawaban->jawaban_id)->first();
 
-        $pdf = \PDF::loadView('admin.questionnaire.pdf', compact('assignQuestion', 'kategori', 'jawaban', 'jawabanOption', 'questionOptions', 'tandaTangan', 'newInfo', 'namaLengkap'));
-        return $pdf->download($namaLengkap . '-'. $kategori->kategori .'.pdf');
-    //    return view('admin.questionnaire.pdf', compact('assignQuestion', 'kategori', 'jawaban', 'jawabanOption', 'questionOptions', 'tandaTangan', 'newInfo', 'namaLengkap'));
+        // $pdf = \PDF::loadView('admin.questionnaire.pdf', compact('assignQuestion', 'kategori', 'jawaban', 'jawabanOption', 'questionOptions', 'tandaTangan', 'newInfo', 'namaLengkap', 'optionGroup'));
+        // return $pdf->download($namaLengkap . '-'. $kategori->kategori .'.pdf');
+       return view('admin.questionnaire.pdf', compact('assignQuestion', 'kategori', 'jawaban', 'jawabanOption', 'questionOptions', 'tandaTangan', 'newInfo', 'namaLengkap', 'optionGroup'));
     }
 }

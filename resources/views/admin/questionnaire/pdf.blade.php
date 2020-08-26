@@ -1,7 +1,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>Survey</title>
+<title>Survey - {{ $kategori->judul }}</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
@@ -37,7 +37,10 @@
         border: 1px solid black;
     }
 </style>
-<p>No. {{ $assignQuestion->id }}</p>
+<?php 
+    $nomor = explode('-', $jawaban->nomor);
+?>
+<p>No. {{ $nomor[1] }}</p>
 <center style="font-weight: bold;">
     {{ $kategori->judul }}
 </center>
@@ -56,37 +59,16 @@
 <br>
 
 <h4>PETUNJUK PENGISIAN</h4>
-<ol>
-    <li>Isilah identitas diri pada tempat data responden di atas yaitu nama responden dan mata pelajaran yang diempu responden (nomor di pojok kiri atas dikosongkan).</li>
-    <li>Dimohonkan kesediaan Bapak/Ibu guru  untuk menjawab setiap nomor item angket dengan sejujurnya sesuai dengan petunjuk yang ada.</li>
-    <li>Pilihlah jawaban dengan memberikan tanda (<span style="font-family: DejaVu Sans, sans-serif;">✔</span>) pada kolom pilihan Bapak/Ibu.</li>
-    <li><strong>Setiap pertanyaan harus dijawab, dan tidak boleh ada yang kosong.</strong></li>
-    <li>Tidak ada jawaban yang dianggap salah, benar, baik maupun buruk, karena itu Bapak/Ibu tidak perlu ragu dalam mengisi angket ini.</li>
-    <li>Setelah selesai diisi, mohon angket ini agar segera dikembalikan kepada peneliti.</li>
-</ol>
+@include('admin.questionnaire._petunjuk-'. $kategori->template)
 
 <p style="margin-left: 16px; font-size: 12px">Keterangan:</p>
 <table style="margin-left: 16px">
+    @foreach ($optionGroup->questionOptions as $option)
     <tr>
-        <td>SS</td>
-        <td>: Sangat Setuju</td>
+        <td>{{ $option->short_name }}</td>
+        <td>: {{ $option->title }}</td>
     </tr>
-    <tr>
-        <td>S</td>
-        <td>: Setuju</td>
-    </tr>
-    <tr>
-        <td>KS</td>
-        <td>: Kurang Setuju</td>
-    </tr>
-    <tr>
-        <td>TS</td>
-        <td>: Tidak Setuju</td>
-    </tr>
-    <tr>
-        <td>STS</td>
-        <td>: Sangat Tidak Setuju</td>
-    </tr>
+    @endforeach
 </table>
 
 <br>
@@ -100,11 +82,9 @@
         <th colspan="5"><p align="center">Pilihan Jawaban</p></th>
     </tr>
     <tr>
-        <td width="9%"><p align="center">SS</p></td>
-        <td width="9%"><p align="center">S</p></td>
-        <td width="9%"><p align="center">RR</p></td>
-        <td width="9%"><p align="center">KS</p></td>
-        <td width="9%"><p align="center">STS</p></td>
+        @foreach ($optionGroup->questionOptions as $option)
+        <td width="9%"><p align="center">{{ $option->short_name }}</p></td>    
+        @endforeach
     </tr>
     </thead>
     <tbody>
@@ -113,7 +93,7 @@
         <tr>
             <td>{{ $no }}.</td>
             <td>{!! $option->pertanyaan !!}</td>
-            @foreach($questionOptions as $qo)
+            @foreach($optionGroup->questionOptions as $qo)
                 <td>
                 @if ($qo->id == $option->option_id)
                     <p align="center"><div style="font-family: DejaVu Sans, sans-serif; font-size: 20px; text-align: center;">✔</div></p>

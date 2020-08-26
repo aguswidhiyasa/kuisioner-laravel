@@ -9,5 +9,6 @@ class QuestionOptionModel extends Model
     //
     protected $table = 'question_options';
 
-    protected $fillable = ['option_group', 'title', 'weight', 'order'];
+    protected $fillable = ['option_group', 'title', 'short_name', 'weight', 'order'];
+
 }
