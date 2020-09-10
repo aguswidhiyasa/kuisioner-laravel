@@ -2,12 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7e56a908-9277-4322-ac67-33bce64331fd" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/survey-angket.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/survey-angket.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/QuestionnaireC.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/QuestionnaireC.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/questionnaire/master.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/questionnaire/master.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/SurveyC.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/SurveyC.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -151,6 +147,9 @@
     <property name="nodejs_package_manager_path" value="npm" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/resources/views/survey" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/public/images" />
       <recent name="$PROJECT_DIR$/public/css" />
@@ -181,7 +180,7 @@
       <workItem from="1596210063451" duration="3406000" />
       <workItem from="1596327843771" duration="4864000" />
       <workItem from="1597495010043" duration="6438000" />
-      <workItem from="1599746095231" duration="2982000" />
+      <workItem from="1599746095231" duration="3426000" />
     </task>
     <servers />
   </component>

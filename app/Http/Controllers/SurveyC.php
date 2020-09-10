@@ -42,8 +42,9 @@ class SurveyC extends Controller
 
             return view('survey.' . $kategori->template, compact('kategori', 'pertanyaans', 'questionOptions', 'id', 'kategoriAdditional'));
         } else {
-            return redirect('home');
-        // return abort(404, 'Kuisioner tidak ditemukan');
+            return view('survey.complete');
+//            return redirect('home');
+//         return abort(404, 'Kuisioner tidak ditemukan');
         }
     }
 
