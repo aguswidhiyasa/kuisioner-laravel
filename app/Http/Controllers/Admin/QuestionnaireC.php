@@ -224,4 +224,38 @@ class QuestionnaireC extends Controller
         return $pdf->download($namaLengkap . '-'. $kategori->kategori .'.pdf');
     //    return view('admin.questionnaire.pdf', compact('assignQuestion', 'kategori', 'jawaban', 'jawabanOption', 'questionOptions', 'tandaTangan', 'newInfo', 'namaLengkap', 'optionGroup'));
     }
+
+    /*
+     * Fungsi untuk edit kuisioner
+     * @param int $id Id Kuisioner
+     * */
+    public function edit($id, $question)
+    {
+        $assignQuestionnaire = AssignQuestionModel::where('question_id', $question)->first();
+        if ($assignQuestionnaire) {
+            $jm = $assignQuestionnaire->jawabanMaster;
+            $nomor = explode('-', $jm->nomor);
+            return response()->json(['nomor' => $nomor[1]]);
+        } else {
+            return response()->json(['message' => 'Data tidak ditemukan'], 501);
+        }
+    }
+
+    public function updateNomor(Request $request)
+    {
+        $assignQuestionnaire = AssignQuestionModel::where('question_id', $request->questionnaireId)->first();
+        if ($assignQuestionnaire) {
+            $jm = JawabanMasterModel::where('assigned_id', $assignQuestionnaire->id)->first();
+            $jm->nomor = $assignQuestionnaire->kategori_id . '-' . $request->idBaru;
+            $jm->save();
+            return response()->json([
+                'message' => 'Nomor berhasil di update',
+                'nomorBaru' => $assignQuestionnaire->kategori_id . '-' . $request->idBaru
+            ]);
+        } else {
+            return response()->json([
+                'message' => 'Data tidak ditemukan'
+            ]);
+        }
+    }
 }

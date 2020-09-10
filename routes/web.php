@@ -68,6 +68,9 @@ Route::group([], function () {
             Route::get('/assign/{id}/remove/{quisioner}',        'Admin\\QuestionnaireC@deAssignedQuestionnaire')->name('kuisioner.delete');
 
             Route::get('download/{id}',              'Admin\\QuestionnaireC@downloadPDF' )->name('kuisioner.download');
+
+            Route::get('assign/{id}/edit/{question}',     'Admin\\QuestionnaireC@edit'        )->name('kuisioner.edit');
+            Route::post('assign/updateNomor', 'Admin\\QuestionnaireC@updateNomor' )->name('kuisioner.updateNomor');
         });
 
         Route::group(['prefix' => 'users'], function() {
