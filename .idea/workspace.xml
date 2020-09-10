@@ -143,7 +143,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/public/images" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/views/survey" />
     <property name="nodejs_package_manager_path" value="npm" />
   </component>
   <component name="RecentsManager">
@@ -151,9 +151,9 @@
       <recent name="$PROJECT_DIR$/resources/views/survey" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/resources/views/survey" />
       <recent name="$PROJECT_DIR$/public/images" />
       <recent name="$PROJECT_DIR$/public/css" />
-      <recent name="$PROJECT_DIR$/resources/views/survey" />
     </key>
   </component>
   <component name="RunManager">
@@ -180,7 +180,7 @@
       <workItem from="1596210063451" duration="3406000" />
       <workItem from="1596327843771" duration="4864000" />
       <workItem from="1597495010043" duration="6438000" />
-      <workItem from="1599746095231" duration="3426000" />
+      <workItem from="1599746095231" duration="3789000" />
     </task>
     <servers />
   </component>

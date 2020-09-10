@@ -41,10 +41,10 @@ class SurveyC extends Controller
             }
 
             return view('survey.' . $kategori->template, compact('kategori', 'pertanyaans', 'questionOptions', 'id', 'kategoriAdditional'));
-        } else {
+        } else if ($assignQuestion->answered == '1') {
             return view('survey.complete');
-//            return redirect('home');
-//         return abort(404, 'Kuisioner tidak ditemukan');
+        } else {
+            return view('survey.empty');
         }
     }
 
