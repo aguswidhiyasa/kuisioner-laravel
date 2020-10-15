@@ -10,5 +10,7 @@ class JawabanTandaTanganModel extends Model
     protected $table = "jawaban_tanda_tangan";
 
     protected $fillable = ['jawaban_id', 'tanda_tangan'];
+
+    public $timestamps = true;
     
 }

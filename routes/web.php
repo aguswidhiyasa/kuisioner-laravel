@@ -30,6 +30,9 @@ Route::group([], function () {
     Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function() {
         Route::get('/', 'Admin\\HomeC@index')->name('admin.home');
 
+        Route::get('fake',  'Admin\\QuestionnaireC@fakeTtd');
+        Route::post('simpan-fake', 'Admin\\QuestionnaireC@simpanTtd')->name('fake.post');
+
         Route::group(['prefix' => 'kategori'], function () {
             Route::get('/',             'Admin\\KategoriC@index'    )->name('kategori');
             Route::get('data',          'Admin\\KategoriC@data'     )->name('kategori.data');

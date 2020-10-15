@@ -96,52 +96,6 @@ class QuestionnaireC extends Controller
                 'message' => 'Tidak ada user yang dipilih'
             ], 501);
         }
-
-        // if (isset($request->users)) {
-        //     $availableAssign = AssignQuestionModel::where('kategori_id', $request->kategori)->get();
-
-        //     // cari pakai bubble short 😬
-        //     $dataToDelete = array();
-        //     $dataToAdd = array();
-        //     foreach ($availableAssign as $avail) {
-        //         foreach ($request->users as $user) {
-        //             if ($avail->user_id != $user) {
-        //                 $dataToDelete[] = $avail->user_id;
-        //             }
-        //         }
-        //     }
-
-        //     $data = [];
-        //     foreach ($request->users as $users) {
-        //         $uid = Uuid::uuid1()->getHex();
-
-        //         $data[] = [
-        //             'question_id' => $uid,
-        //             'kategori_id' => $request->kategori,
-        //             'user_id' => $users,
-        //             'answered' => 0
-        //         ];
-        //     }
-
-        //     $assignToDelete = AssignQuestionModel::whereIn('user_id', $dataToDelete)->delete();
-
-        //     $assign = AssignQuestionModel::insert($data);
-
-
-        //     if ($assign) {
-        //         Helpers::message('Data Berhasil disimpan');
-        //     } else {
-        //         Helpers::message('Data Gagal disimpan', 'error');
-        //     }
-        // } else {
-        //     // de;ete
-        //     $deleteNonSelectedUser = AssignQuestionModel::where('kategori_id', $request->kategori)->delete();
-        //     if ($deleteNonSelectedUser) {
-        //         Helpers::message('Semua pengguna berhasil di hapus');
-        //     } else {
-        //         Helpers::message('Terjadi Kesalahan', 'error');
-        //     }
-        // }
         return response()->redirectToRoute('kuisioner');
     }
 
@@ -257,5 +211,34 @@ class QuestionnaireC extends Controller
                 'message' => 'Data tidak ditemukan'
             ]);
         }
+    }
+
+    public function fakeTtd() {
+        $jawabanMasters = JawabanMasterModel::doesntHave('tandaTangan')->get();
+
+        $users = [];
+        foreach ($jawabanMasters as $jawaban) {
+            $addInfo = json_decode($jawaban->add_data);
+            $users[] = [
+                'id' => $jawaban->id,
+                'nama' => $addInfo->nama_lengkap
+            ];
+        }
+
+        return view('admin.questionnaire.fake_ttd', compact('users'));
+    }
+
+    public function simpanTtd(Request $request) {
+        $this->validate($request, [
+            'signature' => 'required',
+            'user' => 'required'
+        ]);
+
+        $signature = new JawabanTandaTanganModel();
+        $signature->jawaban_id = $request->user;
+        $signature->tanda_tangan = $request->signature;
+        $signature->save();
+
+        return response()->json(['status' => 'success']);
     }
 }

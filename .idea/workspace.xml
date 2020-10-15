@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7e56a908-9277-4322-ac67-33bce64331fd" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/SurveyC.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/SurveyC.php" afterDir="false" />
-    </list>
+    <list default="true" id="7e56a908-9277-4322-ac67-33bce64331fd" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -180,7 +177,7 @@
       <workItem from="1596210063451" duration="3406000" />
       <workItem from="1596327843771" duration="4864000" />
       <workItem from="1597495010043" duration="6438000" />
-      <workItem from="1599746095231" duration="3789000" />
+      <workItem from="1599746095231" duration="3919000" />
     </task>
     <servers />
   </component>
