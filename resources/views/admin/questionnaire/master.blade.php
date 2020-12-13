@@ -28,7 +28,9 @@
             <table id="kuisioner" class="table table-bordered">
                 <thead>
                     <tr>
+                        <td>No Kuisioner</td>
                         <td>Nama</td>
+                        <td>Waktu Pengisian</td>
                         <td width="30%">Aksi</td>
                     </tr>
                 </thead>
@@ -42,7 +44,9 @@
                             }
                         ?>
                         <tr {{ $assign->answered == "1" ? "class=completed" : ''}}>
+                            <td>{{ $assign->nomor  }}</td>
                             <td>{{ $nama }}</td>
+                            <td>{{ $assign->created_at }}</td>
                             <td>
                                 @if ($assign->answered == "1")
                                     <a href="{{ route('kuisioner.download', [ 'id' => $assign->question_id ]) }}" class="btn btn-xs btn-success"><i class="fas fa-download"></i> Unduh Survey</a>
